@@ -13,6 +13,8 @@ using Token = Microsoft.Dafny.Token;
 namespace DafnyTestGeneration.Test {
 
   public class Setup {
+    protected const int DefaultTimeoutMs = 60000;
+    
     protected static DafnyOptions GetDafnyOptions(List<Action<DafnyOptions>> optionSettings, TextWriter writer, params string[] arguments) {
       var options = DafnyOptions.CreateUsingOldParser(writer, TextReader.Null, arguments ?? System.Array.Empty<string>());
       options.DefiniteAssignmentLevel = 3;

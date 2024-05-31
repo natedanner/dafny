@@ -22,7 +22,7 @@ namespace DafnyTestGeneration.Test {
       this.output = new WriterFromOutputHelper(output);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task NoInlining(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -55,7 +55,7 @@ module M {
         Regex.IsMatch(m.ArgValues[0], "-?[0-9]+")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Inlining(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -85,7 +85,7 @@ module M {
         Regex.IsMatch(m.ArgValues[0], "-?[1-9][0-9]*")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task NestedInlining(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -107,7 +107,7 @@ module M {
       Assert.True(methods.Count >= 2);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task SelectiveInlining(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -129,7 +129,7 @@ module M {
       Assert.Single(methods);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task FunctionCallInAMethodTranslation(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -148,7 +148,7 @@ module M {
       Assert.True(2 <= methods.Count);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task InliningRecursion(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -175,7 +175,7 @@ module M {
       Assert.True(methods.Count >= 3);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task InliningNoRecursion(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -202,7 +202,7 @@ module M {
       Assert.True(methods.Count < 3);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task PathBasedTests(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -243,7 +243,7 @@ module Paths {
       Assert.True(values.Exists(i => i % 2 != 0 && i % 3 != 0 && i % 5 != 0));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task BranchBasedTests(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -282,7 +282,7 @@ module Paths {
       Assert.True(values.Exists(i => i % 5 != 0));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task BlockBasedTests(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -315,7 +315,7 @@ module Paths {
       Assert.True(values.Exists(i => i % 2 != 0 || i % 3 != 0 || i % 5 != 0));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task RecursivelyExtractObjectFields(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -385,7 +385,7 @@ module Objects {
     /// loop and must figure out that it needs to set the field of the object
     /// to itself.
     /// </summary>
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task TestByDefaultConstructionOfSelfReferentialValue(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -413,7 +413,7 @@ module M {
       Assert.Single(methods);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task RecursivelyExtractDatatypeFields(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -453,7 +453,7 @@ module DataTypes {
         m.ValueCreation[2].value == $"DataTypes.Node.Cons(next:={m.ValueCreation[1].id})"));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task NonNullableObjects(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -481,7 +481,7 @@ module Module {
       Assert.Equal("Module.Value<char>", m.ValueCreation[0].type.ToString());
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task DeadCode(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -504,7 +504,7 @@ module M {
       Assert.Equal(1, stats.Count(line => line.Contains("unreachable"))); // second is line with stats
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task CoverageReport(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -538,7 +538,7 @@ module M {
         coverageSpan => coverageSpan.Label == CoverageLabel.NotCovered));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task NoDeadCode(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -557,7 +557,7 @@ method {:testEntry} m(a:int) returns (b:int)
       Assert.Single(stats); // the only line with stats
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task TypePolymorphism(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -587,7 +587,7 @@ module Test {
         Regex.IsMatch(m.ValueCreation[0].value, "\\[[0-9]+\\]")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task InlineGhostCode(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -613,7 +613,7 @@ module Math {
       Assert.True(methods.Exists(m => int.Parse(m.ArgValues[1]) >= int.Parse(m.ArgValues[0])));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task FunctionMethodShortCircuit(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -644,7 +644,7 @@ module ShortCircuit {
     /// <summary>
     /// If this fails, consider amending ProgramModifier.MergeBoogiePrograms
     /// </summary>
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task MultipleModules(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -682,7 +682,7 @@ module C {
                                         m.ArgValues[0] == "0.0"));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Oracles(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -715,7 +715,7 @@ module M {
     /// This test may fail if function to method translation implemented by AddByMethodRewriter
     /// does not use the cloner to copy the body of the function
     /// </summary>
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task FunctionToMethodTranslation(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -734,7 +734,7 @@ module M {
       await TestGenerator.GetTestMethodsForProgram(program).ToListAsync();
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task MethodWithNoVerificationGoal(List<Action<DafnyOptions>> optionSettings) {
       var source = @"

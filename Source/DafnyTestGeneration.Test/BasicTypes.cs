@@ -21,7 +21,7 @@ namespace DafnyTestGeneration.Test {
       this.output = new WriterFromOutputHelper(output);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Ints(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -53,7 +53,7 @@ module SimpleTest {
         Regex.IsMatch(m.ArgValues[0], "[1-9][0-9]*")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Bools(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -79,7 +79,7 @@ module SimpleTest {
       Assert.True(methods.Exists(m => m.ArgValues[0] == "true"));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Reals(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -121,7 +121,7 @@ module SimpleTest {
         "[1-9][0-9]*\\.[0-9]*/[1-9][0-9]*\\.[0-9]*")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task BitVectors(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -154,7 +154,7 @@ module SimpleTest {
         Regex.IsMatch(m.ArgValues[0], "\\([1-9][0-9]+ as bv10\\)")));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Chars(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -186,7 +186,7 @@ module SimpleTest {
         m.ArgValues[0].Length == 3 && m.ArgValues[0][1] < 'B'));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task CharsUnspecified(List<Action<DafnyOptions>> optionSettings) {
       // This test case is different from the one above because the model would

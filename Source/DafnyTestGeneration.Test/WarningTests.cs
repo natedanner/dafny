@@ -26,7 +26,7 @@ public class WarningTests : Setup {
     return 0;
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task NoTestEntryPoint(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -43,7 +43,7 @@ module M {
     Assert.Equal(0, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task NoExternalModule(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -58,7 +58,7 @@ method {:testEntry} m (i:int) { }
     Assert.Equal(0, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task InlinedMethodNotReachable(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -79,7 +79,7 @@ method {:testInline 1} b() {}
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task InlinedMethodReachable(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -99,7 +99,7 @@ method {:testInline 1} b() {}
     Assert.Equal(0, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task MalformedAttribute(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -120,7 +120,7 @@ method {:testInline -1} b() {}
     Assert.Equal(0, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task UnsupportedInputTypeTrait(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -138,7 +138,7 @@ method {:testEntry} m (t:T) { }
     Assert.Equal(0, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task UnsupportedInputTypeClass(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -156,7 +156,7 @@ method {:testEntry} m (c:C) { }
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task UnsupportedInputTypeRecursive(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -175,7 +175,7 @@ method {:testEntry} m (d:D) { }
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task UnsupportedInputTypeRecursive2(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -193,7 +193,7 @@ method {:testEntry} m (s:seq<C>) { }
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task UnsupportedRecieverType(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -215,7 +215,7 @@ module M {
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task SmallTimeLimit(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -232,7 +232,7 @@ method {:testEntry} {:timeLimit 100} m () { }
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task NoWitness(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"
@@ -250,7 +250,7 @@ method {:testEntry} m (w:why) { }
     Assert.Equal(1, Count(Warnings, outputString));
   }
 
-  [Theory]
+  [Theory(Timeout = DefaultTimeoutMs)]
   [MemberData(nameof(OptionSettings))]
   public async Task MalformedInput(List<Action<DafnyOptions>> optionSettings) {
     var source = new StringReader(@"

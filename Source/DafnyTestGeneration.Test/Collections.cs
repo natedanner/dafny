@@ -22,7 +22,7 @@ namespace DafnyTestGeneration.Test {
       this.output = new WriterFromOutputHelper(output);
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     public async Task Tuples(List<Action<DafnyOptions>> optionSettings) {
       var source = @"
@@ -64,7 +64,7 @@ module SimpleTest {
         m.ValueCreation.Exists(vc => vc.value.ToString().Contains("\'R\')"))));
     }
 
-    [Theory]
+    [Theory(Timeout = DefaultTimeoutMs)]
     [MemberData(nameof(OptionSettings))]
     private async Task StringLength(List<Action<DafnyOptions>> optionSettings) {
       var source = @"

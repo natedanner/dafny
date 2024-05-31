@@ -53,7 +53,7 @@ public class ShortCircuitRemoval : Setup {
     return method;
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task FunctionToFunctionByMethod() {
     var source = @"
 function {:testEntry} Identity(i:int):int {
@@ -64,7 +64,7 @@ function {:testEntry} Identity(i:int):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task And() {
     var source = @"
 predicate {:testEntry} And(a:bool, b:bool) {
@@ -84,7 +84,7 @@ predicate {:testEntry} And(a:bool, b:bool) {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Or() {
     var source = @"
 predicate {:testEntry} Or(a:bool, b:bool) {
@@ -104,7 +104,7 @@ predicate {:testEntry} Or(a:bool, b:bool) {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Imp() {
     var source = @"
 predicate {:testEntry} Imp(a:bool, b:bool) {
@@ -125,7 +125,7 @@ predicate {:testEntry} Imp(a:bool, b:bool) {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Exp() {
     var source = @"
 predicate {:testEntry} Exp(a:bool, b:bool) {
@@ -145,7 +145,7 @@ predicate {:testEntry} Exp(a:bool, b:bool) {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task IfThenElse() {
     var source = @"
 function {:testEntry} IfThenElse(a:bool):int {
@@ -164,7 +164,7 @@ function {:testEntry} IfThenElse(a:bool):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Let() {
     var source = @"
 function {:testEntry} Let(a:bool):int {
@@ -183,7 +183,7 @@ function {:testEntry} Let(a:bool):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task NestedLet() {
     var source = @"
 function {:testEntry} NestedLet(a:bool):int {
@@ -206,7 +206,7 @@ return #tmp0; }";
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task IfInsideLet() {
     var source = @"
 function {:testEntry} Let(a:bool):int {
@@ -230,7 +230,7 @@ function {:testEntry} Let(a:bool):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task InElseBranch() {
     var source = @"
 function {:testEntry} NestedIfTheElse(a:bool, b:bool):int {
@@ -255,7 +255,7 @@ function {:testEntry} NestedIfTheElse(a:bool, b:bool):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task StmtExpression() {
     var source = @"
 function {:testEntry} StmtExpression(a:int):int {
@@ -276,7 +276,7 @@ function {:testEntry} StmtExpression(a:int):int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Match() {
     var source = @"
 datatype Option = None | Some
@@ -297,7 +297,7 @@ function {:testEntry} IsNone(o: Option): bool {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task MatchWithDestructors() {
     var source = @"
 datatype Option = None | Some(val:int)
@@ -318,7 +318,7 @@ function {:testEntry} UnBoxOrZero(o: Option): int {
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task FunctionCall() {
     var source = @"
 function {:testEntry} Max(a:int, b:int):int {
@@ -335,7 +335,7 @@ function Min(a:int, b:int):int { if a < b then a else b }
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task NestedFunctionCall() {
     var source = @"
 function {:testEntry} Max(a:int, b:int):int {
@@ -359,7 +359,7 @@ function Min(a:int, b:int):int { if a < b then a else b }
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task FunctionCallWithShortCircuitingArgs() {
     var source = @"
 function {:testEntry} Arguments(a:bool, b:bool):bool {
@@ -382,7 +382,7 @@ function IsTrue(a:bool):bool { a }
     await ShortCircuitRemovalTest(source, expected);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Constructor() {
     var source = @"
 class C {
@@ -413,7 +413,7 @@ class C {
     await ShortCircuitRemovalTest(source, expected, isByMethod: false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task While() {
     var source = @"
 method {:testEntry} Sum(n:int) returns (s:int)
@@ -448,7 +448,7 @@ method {:testEntry} Sum(n:int) returns (s:int)
     await ShortCircuitRemovalTest(source, expected, false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task LetOrFail() {
     var source = @"
 datatype Result<T> = Success(value:T) | Failure {
@@ -479,7 +479,7 @@ function {:testEntry} EntryLetOrFail():Result<bool> {
     Assert.Contains(updateStmt.ResolvedStatements, statement => statement is CallStmt); // Fail() is a method call
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task LetOrFailWithAssignment() {
     var source = @"
 datatype Result<T> = Success(value:T) | Failure {
@@ -511,7 +511,7 @@ function {:testEntry} EntryLetOrFail():Result<bool> {
     Assert.Contains(updateStmt.ResolvedStatements, statement => statement is CallStmt); // Fail() is a method call
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task TypeRhs() {
     var source = @"
 class A { 
@@ -528,7 +528,7 @@ method {:testEntry} allocateA() {
     await ShortCircuitRemovalTest(source, expected, false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task Print() {
     var source = @"
 method {:testEntry} Print(b:bool) {
@@ -547,7 +547,7 @@ method {:testEntry} Print(b:bool) {
     await ShortCircuitRemovalTest(source, expected, false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task ForLoop() {
     var source = @"
 method {:testEntry} Sum(n:int) returns (s:int)
@@ -573,7 +573,7 @@ method {:testEntry} Sum(n:int) returns (s:int)
     await ShortCircuitRemovalTest(source, expected, false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task CallStmt() {
     var source = @"
 method callee(a:int) {}
@@ -593,7 +593,7 @@ method {:testEntry} caller() {
     await ShortCircuitRemovalTest(source, expected, false);
   }
 
-  [Fact]
+  [Fact(Timeout = DefaultTimeoutMs)]
   public async Task CallStmtWithUpdate() {
     var source = @"
 method callee(a:int) returns (i:int) { return a; }
